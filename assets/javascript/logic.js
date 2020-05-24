@@ -57,14 +57,21 @@ database.ref().on("child_added", function(childSnapshot) {
     console.log(firstTrain);
     console.log(trainFreq);
     //calculate next arrival
+    var nextArrival = moment(firstTrain, "HH:mm").from(moment(trainFreq, "m"));
+    nextArrival = moment().format("HH:mm");
+    console.log("Next arrival: " + nextArrival);
     //calculate how many minutes until next train
+    // var now = moment().format("HH:mm");
+    var minsArrive = nextArrival - trainFreq;
+    console.log("Minutes until next train: " + minsArrive);
     //create the new row
     var newRow = $("<tr>").append(
         $("<td>").text(tName),
         $("<td>").text(tDestination),
         $("<td>").text(firstTrain),
         $("<td>").text(trainFreq),
-        // $("<td>").text(),
+        $("<td>").text(nextArrival),
+        $("<td>").text(minsArrive),
     );
     //append new row to table
     $("#train-table").append(newRow);
